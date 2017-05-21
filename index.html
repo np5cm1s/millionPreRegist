@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+<title>偶像大师百万刷子</title>
+<body>
+爱马仕麻辣兔丁预约处
+<br>
+<br>
+邮箱地址:<input id="mail" value=""></input>
+<br>
+<input type="radio" name="os" onclick="check(this.value)" value="1" />iOS 
+<input type="radio" name="os" onclick="check(this.value)" value="2" checked="checked"/>安卓
+<br>
+<input type="button" onclick="submit();" value="手动刷">
+<input id="start" type="button" onclick="start();" value="自动刷 开始">
+<input type="button" onclick="stop();" value="自动刷 停止">
+<br>
+已刷<a id="count">0</a>次
+<br>
+<br>
+自动刷的时间间隔是13秒 注意弹窗可能被浏览器拦截 就写着玩玩 数据灌水也请适度
+<br>
+群383238774
+<script>
+getmail();
+var timerId;
+var count = 0;
+var os = 2;
+
+function check(value){
+  os = value;
+}
+
+function start (){
+    document.getElementById("start").style.color="#ff0000";
+    timerId = setInterval("autoSubmit()",13000);
+}
+
+function stop (){
+    document.getElementById("start").style.color="#000000";
+    clearInterval(timerId);
+}
+
+function autoSubmit(){
+	getmail();
+	submit();
+}
+
+function submit(){
+	var mail = document.getElementById('mail').value.replace('@','%40');
+	if(mail){              
+              var a = document.createElement('a');
+              a.setAttribute('href',"https://prereg.bn-ent.net:443/common/serial.php?action=sendmail&app=imasml_theater&device_type="+os+"&mailAddr="+mail);
+              a.setAttribute('target', '_blank');
+              a.setAttribute('id', 'gogo');
+              if(!document.getElementById('gogo')) {                     
+                  document.body.appendChild(a);
+              }
+              a.click();	
+        count = count + 1;
+	document.getElementById('count').innerHTML=count;
+	getmail();
+        if(count>99){
+            clearInterval(timerId);
+            document.getElementById("start").style.color="#000000";
+            alert("已经刷了一百次了 歇会吧");
+        }
+	}
+}
+
+function getmail(){
+    var time = new Date().toString();
+    var h = 0;
+    for(var i = 0; i < time.length;i++){
+            h = h + time.charCodeAt(i++)*Math.random()*10000;
+			}
+	document.getElementById('mail').value=parseInt(h)%100+parseInt(h).toString(16)+"@yahoo.jp";
+    }
+</script>
+</body>
+</html>
